@@ -2,8 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Crit-IQ Data Interpretation Simulator</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crit-IQ">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#00b4d8">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230d1117'/><text y='55' x='50' text-anchor='middle' font-size='40' font-family='monospace' fill='%2300b4d8'>DI</text></svg>">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2128;--border:#21262d;--teal:#00b4d8;--teal-dim:#0077a0;--red:#f85149;--green:#3fb950;--yellow:#d29922;--purple:#a371f7;--text:#e6edf3;--muted:#8b949e;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif}
@@ -381,6 +388,17 @@ function goHome(){
 
 buildCatGrid();
 loadState();
+
+// PWA install prompt
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  const banner = document.createElement('div');
+  banner.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#00b4d8;color:#000;padding:12px 28px;border-radius:8px;font-family:monospace;font-size:13px;font-weight:600;cursor:pointer;z-index:9999;box-shadow:0 4px 20px rgba(0,180,216,0.4);white-space:nowrap';
+  banner.textContent = '⬇ Add to Home Screen';
+  banner.onclick = () => { e.prompt(); banner.remove(); };
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 10000);
+});
 </script>
 </body>
 </html>
